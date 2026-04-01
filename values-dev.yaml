@@ -1,0 +1,6 @@
+configFilePath: "configs/dev/env-vars.properties"
+appConfigPath: "configs/dev/app-config.json"
+config:
+  LOG_LEVEL: "DEBUG"
+  MAX_CONNECTIONS: "50"
+  APP_NAME: "my-app-dev"

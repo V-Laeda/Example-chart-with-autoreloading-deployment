@@ -1,0 +1,15 @@
+replicaCount: 2
+
+image:
+  repository: busybox
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+# Пути к файлам относительно директории чарта
+configFilePath: "configs/dev/env-vars.properties"
+appConfigPath: "configs/dev/app-config.json"
+
+config:
+  LOG_LEVEL: "INFO"
+  MAX_CONNECTIONS: "100"
+  APP_NAME: "my-application"

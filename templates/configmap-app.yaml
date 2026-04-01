@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "my-app-separated-config.fullname" . }}-app-config
+data:
+  app-config.json: |
+{{ (.Files.Get .Values.appConfigPath) | indent 4 }}

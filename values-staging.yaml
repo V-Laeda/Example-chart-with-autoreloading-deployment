@@ -1,0 +1,6 @@
+configFilePath: "configs/staging/env-vars.properties"
+appConfigPath: "configs/staging/app-config.json"
+config:
+  LOG_LEVEL: "INFO"
+  MAX_CONNECTIONS: "1000"
+  APP_NAME: "my-app-staging"

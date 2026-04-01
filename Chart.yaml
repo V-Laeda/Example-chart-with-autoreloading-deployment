@@ -1,0 +1,5 @@
+apiVersion: v2
+name: my-app-env-and-file
+description: A Helm chart with ConfigMap as environment variables and mounted config file
+version: 0.1.0
+appVersion: "1.0.0"

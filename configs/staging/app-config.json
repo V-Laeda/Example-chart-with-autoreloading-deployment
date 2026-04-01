@@ -1,0 +1,12 @@
+{
+  "appName": "{{ .Values.config.APP_NAME }}",
+  "maxConnections": {{ .Values.config.MAX_CONNECTIONS }},
+  "features": {
+    "debugMode": false,
+    "rateLimiting": false
+  },
+  "database": {
+    "host": "localhost",
+    "port": 5432
+  }
+}

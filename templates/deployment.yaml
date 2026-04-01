@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "my-app-separated-config.fullname" . }}
+  labels:
+    app: {{ include "my-app-separated-config.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "my-app-separated-config.fullname" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "my-app-separated-config.fullname" . }}
+      annotations:
+        # Хеш от переменных окружения
+        checksum/env: {{ include "my-app-separated-config.envHash" . }}
+        # Хеш от файла конфигурации
+        checksum/app-config: {{ include "my-app-separated-config.appConfigHash" . }}
+        # Общий хеш для триггера перезапуска
+        checksum/full: {{ include "my-app-separated-config.fullHash" . }}
+        config-version: {{ include "my-app-separated-config.fullHash" . | trunc 8 }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        command: ["sh", "-c", "while true; do echo 'LOG_LEVEL=$LOG_LEVEL, APP_NAME=$APP_NAME'; cat /etc/config/app-config.json | grep -i log; sleep 10; done"]
+        envFrom:
+        - configMapRef:
+            name: {{ include "my-app-separated-config.fullname" . }}-env-config
+        volumeMounts:
+        - name: app-config-volume
+          mountPath: /etc/config
+          readOnly: true
+      volumes:
+      - name: app-config-volume
+        configMap:
+          name: {{ include "my-app-separated-config.fullname" . }}-app-config
+          items:
+          - key: app-config.json
+            path: app-config.json

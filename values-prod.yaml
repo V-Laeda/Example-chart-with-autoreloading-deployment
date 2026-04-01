@@ -1,0 +1,6 @@
+configFilePath: "configs/prod/env-vars.properties"
+appConfigPath: "configs/prod/app-config.json"
+config:
+  LOG_LEVEL: "WARN"
+  MAX_CONNECTIONS: "1000"
+  APP_NAME: "my-app-prod"
